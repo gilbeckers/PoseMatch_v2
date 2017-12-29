@@ -9,9 +9,13 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.tensorflow.demo.env.Logger;
 
@@ -24,12 +28,23 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView imageView;
 
+    // https://www.sitepoint.com/creating-a-cloud-backend-for-your-android-app-using-firebase/
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+
+    private Toolbar myToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         imageView = (ImageView) findViewById(R.id.imageViewPose);
+
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        DrawerUtil.getDrawer(this, myToolbar);
     }
 
     public void startCameraView(View view) {
